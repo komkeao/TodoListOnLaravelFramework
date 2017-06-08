@@ -58,6 +58,11 @@ class TodoController extends Controller
     public function show($id)
     {
         //
+        $todo = Todolist::find($id);
+        $data['action']='view';
+        $data['todo']=$todo;
+        // dd($data);
+        return view('view', $data);
     }
 
     /**
@@ -68,7 +73,14 @@ class TodoController extends Controller
      */
     public function edit($id)
     {
-        //
+                //
+        $todo = Todolist::find($id);
+        $data['todo']=$todo;
+        $data['action']="edit";
+        
+        
+        // dd($data);
+        return view('view',$data);
     }
 
     /**
@@ -80,6 +92,12 @@ class TodoController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $todo= Todolist::find($id);
+        $todo->topic=$request['topic'];
+        $todo->content=$request['content'];
+        $todo->user_id="12";
+        $todo->update();
+        return redirect('todo');
         //
     }
 
@@ -91,6 +109,8 @@ class TodoController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $todo= Todolist::find($id);
+        $todo->delete();
+        return redirect('todo');
     }
 }
