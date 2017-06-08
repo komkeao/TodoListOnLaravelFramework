@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Todolist;
+use Illuminate\Support\Facades\DB;
+use Auth;
 class TodoController extends Controller
 {
     /**
@@ -14,7 +16,7 @@ class TodoController extends Controller
     public function index()
     {
         //Show List Of Item
-        $todos=Todolist::all();
+        $todos = DB::table('todolists')->where('user_id', Auth::user()->id)->get();
         $data['todos']= $todos;
         return view('home',$data);
     }
@@ -42,11 +44,9 @@ class TodoController extends Controller
         $todo= new Todolist();
         $todo->topic=$request['topic'];
         $todo->content=$request['content'];
-        $todo->user_id=5;
+        $todo->user_id=Auth::user()->id;
         $todo->save();
-        $todos=Todolist::all();
-        $data['todos']= $todos;
-        return view('home',$data);
+        return redirect('todo');
 
         //
     }
@@ -95,7 +95,7 @@ class TodoController extends Controller
         $todo= Todolist::find($id);
         $todo->topic=$request['topic'];
         $todo->content=$request['content'];
-        $todo->user_id="12";
+        $todo->user_id=Auth::user()->id;
         $todo->update();
         return redirect('todo');
         //

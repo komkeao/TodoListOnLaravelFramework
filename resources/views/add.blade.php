@@ -4,9 +4,10 @@
     <div class="col-md-8 col-md-offset-2">
       <div class="panel panel-default">
         <div class="panel-heading">Add To Do Lists</div>
-
         <div class="panel-body">
           <form class="form-horizontal" method="post" action="{{ url('/todo') }}">
+           {{ Form::open(array('route' => array('todo.create'), 'method' => 'post','class'=> 'form-horizontal')) }}
+            
             <div class="form-group">
               <label class="control-label col-sm-2" for="email">Topic:</label>
               <div class="col-sm-10">
@@ -28,7 +29,7 @@
               </div>
             </div>
             <input type="hidden" name="_token" value="{{ csrf_token() }}">
-          </form>
+          {{ Form::close() }}
         </div>
       </div>
     </div>
