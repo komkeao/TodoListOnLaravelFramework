@@ -13,10 +13,10 @@ class TodoController extends Controller
      */
     public function index()
     {
+        //Show List Of Item
         $todos=Todolist::all();
         $data['todos']= $todos;
         return view('home',$data);
-        //
     }
 
     /**
@@ -26,6 +26,7 @@ class TodoController extends Controller
      */
     public function create()
     {
+        //Go To Add Todo List Page
         return view('add');
     }
 
@@ -37,6 +38,7 @@ class TodoController extends Controller
      */
     public function store(Request $request)
     {
+        //Add Todo List To Database
         $todo= new Todolist();
         $todo->topic=$request['topic'];
         $todo->content=$request['content'];
@@ -57,7 +59,7 @@ class TodoController extends Controller
      */
     public function show($id)
     {
-        //
+        //Show Details of Todo Lists
         $todo = Todolist::find($id);
         $data['action']='view';
         $data['todo']=$todo;
@@ -73,13 +75,10 @@ class TodoController extends Controller
      */
     public function edit($id)
     {
-                //
+        //Go to Edit Page with Old Data
         $todo = Todolist::find($id);
         $data['todo']=$todo;
         $data['action']="edit";
-        
-        
-        // dd($data);
         return view('view',$data);
     }
 
@@ -92,6 +91,7 @@ class TodoController extends Controller
      */
     public function update(Request $request, $id)
     {
+        //Update Data into Database
         $todo= Todolist::find($id);
         $todo->topic=$request['topic'];
         $todo->content=$request['content'];
@@ -109,6 +109,7 @@ class TodoController extends Controller
      */
     public function destroy($id)
     {
+        //Delete Todo List in Database by Id
         $todo= Todolist::find($id);
         $todo->delete();
         return redirect('todo');
