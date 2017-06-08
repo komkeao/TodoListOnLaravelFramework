@@ -193,7 +193,6 @@ App\Providers\RouteServiceProvider::class,
 */
 
 
-
 'aliases' => [
 'Form' => Collective\Html\FormFacade::class,
 'Html' => Collective\Html\HtmlFacade::class,
